@@ -1,0 +1,62 @@
+﻿@*@model IEnumerable<ProductTable1.Models.Product_Result>*@
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<ProductTable1.Models.Product_Result>
+
+@{
+    ViewBag.Title = "Index1";
+}
+
+<h2>Index1</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            CategoryId
+        </th>
+        <th>
+            CategoryName
+        </th>
+        <th>
+            ProductId
+        </th>
+        <th>
+            ProductName
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ToList())
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Category", "Index2", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Product", "Index3", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+<div></div>
+    Page@(Model.PageCount < Model.PageNumber ? 0:Model.PageNumber)/@Model.PageCount)
+    <div>
+        @Html.PagedListPager(Model, page => Url.Action("Index1", new { page = page }))
+    </div>

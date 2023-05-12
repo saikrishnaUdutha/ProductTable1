@@ -1,0 +1,50 @@
+﻿@*@model IEnumerable<ProductTable1.Models.CategoryTable>*@
+@using ProductTable1.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<CategoryTable>
+
+
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New","Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            CategoryId
+        </th>
+        <th>
+            CategoryName
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CategoryId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+            @Html.ActionLink("live", "Index1", new { id = item.CategoryId })
+        </td>
+    </tr>
+}
+
+</table>
+<div></div>
+    Page@(Model.PageCount < Model.PageNumber ? 0:Model.PageNumber)/@Model.PageCount)
+<div>
+    @Html.PagedListPager(Model,page =>Url.Action("Index",new { page = page}))
+</div>
